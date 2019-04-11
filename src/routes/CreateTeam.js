@@ -16,9 +16,16 @@ class CreateTeam extends React.Component {
   onSubmit = async () => {
     this.errors = {};
     const { name } = this;
-    const res = await this.props.mutate({
-      variables: { name },
-    });
+    let res = null;
+    try {
+      res = await this.props.mutate({
+        variables: { name },
+      });
+    } catch (err) {
+      this.props.history.push('/login');
+      return;
+    }
+
     const { ok, errors } = res.data.createTeam;
     if (ok) {
       this.props.history.push('/');
