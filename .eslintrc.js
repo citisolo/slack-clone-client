@@ -7,6 +7,7 @@ module.exports = {
     'react/destructuring-assignment':0,
     'react/prop-types':0,
     'no-console':0,
+    'implicit-arrow-linebreak':0,
   },
   globals: {
     document: 1,
