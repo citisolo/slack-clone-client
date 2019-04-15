@@ -2,7 +2,8 @@ import React from 'react';
 import { extendObservable } from 'mobx';
 import { observer } from 'mobx-react';
 import { Form, Container, Header, Input, Button, Message } from 'semantic-ui-react';
-import { gql, graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
 
 class Login extends React.Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class Login extends React.Component {
     if (ok) {
       localStorage.setItem('token', token);
       localStorage.setItem('refreshToken', refreshToken);
-      this.props.history.push('/');
+      this.props.history.push('/view-team');
     } else {
       const err = {};
       errors.forEach(({ path, message }) => {
