@@ -9,7 +9,6 @@ const TeamWrapper = styled.div`
   color: #958993;
 `;
 
-
 const TeamList = styled.ul`
   width: 100%;
   padding-left: 0px;
@@ -35,13 +34,11 @@ const TeamListItem = styled.li`
   }
 `;
 
-
 const team = ({ id, letter }) => (
-  <Link to={`/view-team/${id}`} key={`team-${id}`}>
-    <TeamListItem >{letter}</TeamListItem>
+  <Link key={`team-${id}`} to={`/view-team/${id}`}>
+    <TeamListItem>{letter}</TeamListItem>
   </Link>
 );
-
 
 export default ({ teams }) => (
   <TeamWrapper>

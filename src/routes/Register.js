@@ -1,7 +1,7 @@
 import React from 'react';
-import { Message, Button, Input, Container, Header, Form } from 'semantic-ui-react';
-import gql from 'graphql-tag';
+import { Form, Message, Button, Input, Container, Header } from 'semantic-ui-react';
 import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 class Register extends React.Component {
   state = {
@@ -25,8 +25,6 @@ class Register extends React.Component {
       variables: { username, email, password },
     });
 
-    console.log(response);
-
     const { ok, errors } = response.data.register;
 
     if (ok) {
@@ -34,35 +32,40 @@ class Register extends React.Component {
     } else {
       const err = {};
       errors.forEach(({ path, message }) => {
+        // err['passwordError'] = 'too long..';
         err[`${path}Error`] = message;
       });
+
       this.setState(err);
     }
+
+    console.log(response);
   };
 
   onChange = (e) => {
     const { name, value } = e.target;
-    this.setState({
-      [name]: value,
-    });
+    // name = "email";
+    this.setState({ [name]: value });
   };
 
   render() {
-    const { username, email, password, usernameError, emailError, passwordError } = this.state;
-
+    const {
+      username, email, password, usernameError, emailError, passwordError,
+    } = this.state;
 
     const errorList = [];
 
     if (usernameError) {
       errorList.push(usernameError);
     }
+
     if (emailError) {
       errorList.push(emailError);
     }
+
     if (passwordError) {
       errorList.push(passwordError);
     }
-
 
     return (
       <Container text>
@@ -78,15 +81,9 @@ class Register extends React.Component {
             />
           </Form.Field>
           <Form.Field error={!!emailError}>
-            <Input
-              name="email"
-              onChange={this.onChange}
-              value={email}
-              placeholder="Email"
-              fluid
-            />
+            <Input name="email" onChange={this.onChange} value={email} placeholder="Email" fluid />
           </Form.Field>
-          <Form.Field error={!!emailError}>
+          <Form.Field error={!!passwordError}>
             <Input
               name="password"
               onChange={this.onChange}
@@ -96,26 +93,19 @@ class Register extends React.Component {
               fluid
             />
           </Form.Field>
-          <Form.Field>
-            <Button onClick={this.onSubmit}>Submit</Button>
-          </Form.Field>
+          <Button onClick={this.onSubmit}>Submit</Button>
         </Form>
-        { errorList.length !== 0 ? (
-          <Message
-            error
-            header="There was some errors with your submission"
-            list={errorList}
-          />
+        {errorList.length ? (
+          <Message error header="There was some errors with your submission" list={errorList} />
         ) : null}
       </Container>
-
     );
   }
 }
 
 const registerMutation = gql`
-  mutation($username: String!, $email: String!, $password: String!){
-    register(username:$username, email: $email, password: $password){
+  mutation($username: String!, $email: String!, $password: String!) {
+    register(username: $username, email: $email, password: $password) {
       ok
       errors {
         path
@@ -124,6 +114,5 @@ const registerMutation = gql`
     }
   }
 `;
-
 
 export default graphql(registerMutation)(Register);

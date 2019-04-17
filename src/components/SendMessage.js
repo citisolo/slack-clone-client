@@ -10,6 +10,6 @@ const SendMessageWrapper = styled.div`
 
 export default ({ channelName }) => (
   <SendMessageWrapper>
-    <Input fluid placeholder={`Message # ${channelName}`} />
+    <Input fluid placeholder={`Message #${channelName}`} />
   </SendMessageWrapper>
 );

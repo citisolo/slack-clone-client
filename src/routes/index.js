@@ -11,7 +11,6 @@ import ViewTeam from './ViewTeam';
 const isAuthenticated = () => {
   const token = localStorage.getItem('token');
   const refreshToken = localStorage.getItem('refreshToken');
-
   try {
     decode(token);
     decode(refreshToken);
@@ -22,20 +21,19 @@ const isAuthenticated = () => {
   return true;
 };
 
-
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
-    render={props => (isAuthenticated() ? (
-      <Component {...props} />
-    ) : (
-      <Redirect
-        to={{
-          pathname: '/login',
-        }}
-      />
-    )
-    )}
+    render={props =>
+      (isAuthenticated() ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{
+            pathname: '/login',
+          }}
+        />
+      ))}
   />
 );
 
