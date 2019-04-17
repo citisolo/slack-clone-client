@@ -9,6 +9,7 @@ module.exports = {
     'no-console':0,
     'implicit-arrow-linebreak':0,
     'jsx-a11y/anchor-is-valid':0,
+    'no-extra-boolean-cast':0,
   },
   globals: {
     document: 1,
