@@ -2,15 +2,18 @@ import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-const Home = ({ data: { allUsers = [] } }) => allUsers.map(u => <h1 key={u.id}>{u.email}</h1>);
+const Home = ({ data: { allUsers = [] }, history }) => {
+	history.push('/view-team');
+	return null;
+};
 
 const allUsersQuery = gql`
-  {
-    allUsers {
-      id
-      email
-    }
-  }
+	{
+		allUsers {
+			id
+			email
+		}
+	}
 `;
 
 export default graphql(allUsersQuery)(Home);
